@@ -35,14 +35,14 @@ def students():
 @app.route('/room_logs.html')
 def room_logs():
   columnVal = request.args.get('columnVal', None)
-  roomLogs = executeStmt("select r.room_name, s.* from scan s, room r where r.room_name = '" + columnVal + "' and r.room_id = s.room_id");
-  jsonStr = json.dumps(roomLogs)
+  roomLogs = executeStmt("select r.room_name, p.firstname, p.lastname, p.email, s.time from scan s, room r, person p where r.room_name = '" + columnVal + "' and r.room_id = s.room_id and s.person_id = p.person_id");
+  jsonStr = json.dumps(roomLogs, indent=4, sort_keys=True, default=str)
   return render_template('./room_logs.html', roomLogs = jsonStr)
 @app.route('/person_logs.html')
 def person_logs():
   columnVal = request.args.get('columnVal', None)
   personLogs = executeStmt("select p.person_id, p.firstname, p.lastname, p.email, s.* from scan s, person p where p.person_id = " + columnVal + " and p.person_id = s.person_id");
-  jsonStr = json.dumps(personLogs)
+  jsonStr = json.dumps(personLogs, indent=4, sort_keys=True, default=str)
   return render_template('./person_logs.html', personLogs = jsonStr)
 
 if __name__ == "__main__":

@@ -1,0 +1,131 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: #222831;
+}
+
+h1{
+    background-color:#393e4666; 
+    color: #EEEEEE;
+    text-align: center;
+    padding: 1.5%;
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+    min-height: 80vh;
+}
+
+.btn{
+    width: 300px;
+    height: 110px;
+    padding: 20px;
+    border: none;
+    color: #EEEEEE;
+    border-radius: 4px;
+    transition: ease-out 0.3s;
+    font-size: 2rem;
+    outline: none;
+    border: 4px solid #FFD369;
+    position: relative;
+}
+
+.btn:hover {
+    color: #EEEEEE;
+    cursor: pointer;
+}
+
+.btn:before{
+    transition: 0.5s all ease;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    right: 50%;
+    bottom: 0;
+    opacity: 0;
+    content: "";
+    background-color: #FFD369;
+}
+
+.btn:hover:before{
+    transition: 0.5s all ease;
+    left: 0;
+    right: 0;
+    opacity: 1;
+    z-index: -1;
+}
+
+footer{
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+footer .wave{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: url(../img/wave.png);
+    background-size: 1000px 100px;
+}
+
+footer .wave.wave1{
+    animation: waveR linear 3s infinite;
+    animation-delay: 0s;
+    z-index: 5;
+    opacity: 1;
+    bottom: 0;
+}
+
+footer .wave.wave2{
+    animation: waveL linear 15s infinite;
+    animation-delay: -5s;
+    z-index: 4;
+    opacity: 0.5;
+    bottom: 10px;
+}
+
+footer .wave.wave3{
+    animation: waveR linear 30s infinite;
+    animation-delay: -2s;
+    z-index: 3;
+    opacity: 0.2;
+    bottom: 15px;
+}
+
+footer .wave.wave4{
+    animation: waveR linear 5s infinite;
+    animation-delay: -5s;
+    z-index: 2;
+    opacity: 0.7;
+    bottom: 20px;
+}
+
+@keyframes waveR {
+    0% {
+        background-position: 0;
+    }
+
+    100% {
+        background-position: 1000px;
+    }
+}
+
+@keyframes waveL {
+    0% {
+        background-position: 0;
+    }
+
+    100% {
+        background-position: -1000px;
+    }
+}

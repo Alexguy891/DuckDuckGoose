@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Duck Duck Goose</title>
+    </head>
+<body>
+    <div id="result"></div>
+</body>
+</html>
+<script>
+    let roomData = {{ rooms | safe }};
+    var resultElement = document.getElementById("result");
+    resultElement.innerHTML = "<p>";
+
+    roomData.forEach(printData)
+    function printData(roomData) {
+        for(var i = 0; i < roomData.length - 1; i++) {
+            resultElement.innerHTML += roomData[i] + ", ";
+        }
+
+        resultElement.innerHTML += roomData[roomData.length - 1];
+    }
+
+    resultElement.innerHTML += "</p>";
+</script>

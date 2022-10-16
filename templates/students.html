@@ -1,0 +1,19 @@
+<html>
+    <div id="result"></div>
+</html>
+<script>
+    let personData = {{ persons | safe }};
+    var resultElement = document.getElementById("result");
+    resultElement.innerHTML = "<p>";
+
+    personData.forEach(printData);
+    function printData(personData {
+        for(var i = 0; i < personData.length - 1; i++) {
+            resultElement.innerHTML += personData[i] + ", ";
+        }
+
+        resultElement.innerHTML += personData[personData.length - 1];
+    }
+
+    resultElement.innerHTML += "</p>";
+</script>

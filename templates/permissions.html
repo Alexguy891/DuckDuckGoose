@@ -1,0 +1,19 @@
+<html>
+    <div id="result"></div>
+</html>
+<script>
+    let permissionData = {{ permissions | safe }};
+    var resultElement = document.getElementById("result");
+    resultElement.innerHTML = "<p>";
+
+    permissionData.forEach(printData);
+    function printData(permissionData) {
+        for(var i = 0; i < permissionData.length - 1; i++) {
+            resultElement.innerHTML += permissionData[i] + ", ";
+        }
+
+        resultElement.innerHTML += permissionData[permissionData.length - 1];
+    }
+
+    resultElement.innerHTML += "</p>";
+</script>

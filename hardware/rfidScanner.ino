@@ -11,7 +11,7 @@ void setup() {
   SPI.begin();
   rfid.init();
   pinMode(7, OUTPUT); //red
-  pinMode(6, OUTPUT); //yellow
+  pinMode(6, OUTPUT); //green
   pinMode(8, OUTPUT); //speaker
 }
 

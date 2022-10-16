@@ -1,5 +1,10 @@
 <html>
-    <div id="result"></div>
+    <table id="result">
+        <tr>
+            <th>perm_ID</th>
+            <th>role_name</th>
+        </tr>
+    </table>
 </html>
 <script>
     let permissionData = {{ permissions | safe }}; // pulls data from Python as 2d array
@@ -7,15 +12,16 @@
 
     permissionData.forEach(printData); // runs printData() on each row in table
     function printData(permissionData) { 
+        str += "<tr>"
         for(var i = 0; i < permissionData.length - 1; i++) { // loops through all columns in row
             var linkNeed = false;
 
-            str += permissionData[i] + ", "; // appends column data with ', ' and puts in innerHTML
+            str += "<td>" + permissionData[i] + "</td>"; // appends column data with ', ' and puts in innerHTML
         }
         
-        str += permissionData[permissionData.length - 1]; // appends last column item without ','
-        str += "<br>"; // closes tag in innerHTML
+        str += "<td>" + permissionData[permissionData.length - 1] + "</td>"; // appends last column item without ','
+        str += "</tr>"; // closes tag in innerHTML
     }
 
-    document.getElementById("result").innerHTML = str;
+    document.getElementById("result").innerHTML += str;
 </script>

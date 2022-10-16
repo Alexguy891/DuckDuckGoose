@@ -1,0 +1,32 @@
+<html>
+    <table id="result">
+        <tr>
+            <th>person_Id</th>
+            <th>firstname</th>
+            <th>lastname</th>
+            <th>email</th>
+            <th>perm_id</th>
+        </tr>
+    </table>
+</html>
+<script>
+    let personData = {{ persons | safe }}; // pulls data from Python as 2d array
+    var str = "";
+    var columnVal = "";
+    personData.forEach(printData); // runs printData() on each row in table
+    function printData(personData) { 
+        str += "<tr><td><a href='{{ url_for('person_logs', columnVal='personData') }}''".replace("personData", personData[0]);
+        for(var i = 0; i < personData.length - 1; i++) { // loops through all columns in row
+            str += "<td> " + personData[i] + " </td>"; // appends column data with ', ' and puts in innerHTML
+
+            if(i == 0) {
+                str += "</td></a>"
+            }
+        }
+        
+
+        str += "<td>" + personData[personData.length - 1] + "</td>"; // appends last column item without ','
+        str += "</tr>"; // closes tag in innerHTML
+    }
+    document.getElementById("result").innerHTML += str;
+</script>

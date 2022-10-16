@@ -1,11 +1,10 @@
-<!DOCTYPE html>
 <html>
-    <head>
-        <title>Duck Duck Goose</title>
-    </head>
-<body>
-    <div id="result"></div>
-</body>
+    <table id="result">
+        <tr>
+            <th>room_num</th>
+            <th>building_name</th>
+        </tr>
+    </table>
 </html>
 <script>
     let roomsData = {{ rooms | safe }}; // pulls data from Python as 2d array
@@ -13,22 +12,18 @@
     var columnVal = "";
     roomsData.forEach(printData); // runs printData() on each row in table
     function printData(roomsData) { 
-        console.log(roomsData[0]);
-        str += "<a href='{{ url_for('room_logs', columnVal='roomsData') }}''".replace("roomsData", roomsData[0]);
+        str += "<tr><td><a href='{{ url_for('room_logs', columnVal='roomsData') }}''".replace("roomsData", roomsData[0]);
         for(var i = 0; i < roomsData.length - 1; i++) { // loops through all columns in row
-            var linkNeed = false;
-
-            str += roomsData[i] + ", "; // appends column data with ', ' and puts in innerHTML
+            str += "<td> " + roomsData[i] + " </td>"; // appends column data with ', ' and puts in innerHTML
 
             if(i == 0) {
-                str += "</a>";
-                columnVal = roomsData[i];
+                str += "</td></a>"
             }
         }
         
-        str += roomsData[roomsData.length - 1]; // appends last column item without ','
-        str += "<br>"; // closes tag in innerHTML
-    }
 
-    document.getElementById("result").innerHTML = str;
+        str += "<td>" + roomsData[roomsData.length - 1] + "</td>"; // appends last column item without ','
+        str += "</tr>"; // closes tag in innerHTML
+    }
+    document.getElementById("result").innerHTML += str;
 </script>

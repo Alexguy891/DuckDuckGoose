@@ -1,21 +1,27 @@
 <html>
-    <div id="result"></div>
+    <table id="result">
+        <tr>
+            <th>room_num</th>
+            <th>firstname</th>
+            <th>lastname</th>
+            <th>email</th>
+            <th>time_of_scan</th>
+        </tr>
+    </table>
 </html>
 <script>
 let logData = {{ roomLogs | safe }}; // pulls data from Python as 2d array
-    var str = "";
+    var str = "<tr>";
 
     logData.forEach(printData); // runs printData() on each row in table
     function printData(logData) { 
         for(var i = 0; i < logData.length - 1; i++) { // loops through all columns in row
-            var linkNeed = false;
-
-            str += logData[i] + ", "; // appends column data with ', ' and puts in innerHTML
+            str += "<td>" + logData[i] + "</td>"; // appends column data with ', ' and puts in innerHTML
         }
         
-        str += logData[logData.length - 1]; // appends last column item without ','
-        str += "<br>"; // closes tag in innerHTML
+        str += "<td>" + logData[logData.length - 1] + "</td>"; // appends last column item without ','
+        str += "</tr>"; // closes tag in innerHTML
     }
 
-    document.getElementById("result").innerHTML = str;
+    document.getElementById("result").innerHTML += str;
 </script>

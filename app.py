@@ -1,3 +1,4 @@
+from dataclasses import replace
 import json
 from flask import request
 from flask import Flask, render_template
@@ -27,11 +28,11 @@ def permissions():
   permissions = executeStmt("select * from permission")
   jsonStr = json.dumps(permissions)
   return render_template('./permissions.html', permissions = jsonStr)
-@app.route('/students.html')
-def students():
+@app.route('/persons.html')
+def persons():
   persons = executeStmt("select * from person")
   jsonStr = json.dumps(persons)
-  return render_template('./students.html', persons = jsonStr)
+  return render_template('./persons.html', persons = jsonStr)
 @app.route('/room_logs.html')
 def room_logs():
   columnVal = request.args.get('columnVal', None)
@@ -41,7 +42,8 @@ def room_logs():
 @app.route('/person_logs.html')
 def person_logs():
   columnVal = request.args.get('columnVal', None)
-  personLogs = executeStmt("select p.person_id, p.firstname, p.lastname, p.email, s.* from scan s, person p where p.person_id = " + columnVal + " and p.person_id = s.person_id");
+  columnVal = columnVal.replace("%20"," ")
+  personLogs = executeStmt("select p.person_id, p.firstname, p.lastname, p.email, s.* from scan s, person p where p.person_id = '" + columnVal + "' and p.person_id = s.person_id");
   jsonStr = json.dumps(personLogs, indent=4, sort_keys=True, default=str)
   return render_template('./person_logs.html', personLogs = jsonStr)
 

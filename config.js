@@ -17,17 +17,27 @@ function getPermission(personID) {
   return executeStmt(stmt);
 }
 
-function executeStmt(stmt) {
-  ( async() => {
-    await client.connect();
-    try {
-      const results = await client.query(stmt);
-      return results;
-    } catch (err) {
-      console.error("error executing query:", err);
-    } finally {
-      client.end();
-    }
-  })();
-}
+let stmt = "select * from room;";
+//results = executeStmt(stmt);
+
+
+
+
+
+
+const executeStmt = async (stmt) => {
+  await client.connect();
+
+  try {
+    const results = await client.query(stmt);
+    //console.log(results);
+    return results ;
+  } catch (err) {
+    console.error("error executing query:", err);
+  } finally {
+    client.end();
+  }
+};
+
+await executeStmt(stmt)
 

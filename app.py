@@ -30,7 +30,7 @@ def permissions():
   return render_template('./permissions.html', permissions = jsonStr)
 @app.route('/persons.html')
 def persons():
-  persons = executeStmt("select * from person")
+  persons = executeStmt("select person_id, firstname, lastname, email from person")
   jsonStr = json.dumps(persons)
   return render_template('./persons.html', persons = jsonStr)
 @app.route('/room_logs.html')

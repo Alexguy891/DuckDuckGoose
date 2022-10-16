@@ -2,18 +2,27 @@
     <div id="result"></div>
 </html>
 <script>
-    let personsData = {{ persons | safe }}; // pulls data from Python as 2d array
-    var resultElement = document.getElementById("result"); // pulls tag with id = "result"
+    let personData = {{ persons | safe }}; // pulls data from Python as 2d array
+    var str = "";
+    var columnVal = "";
+    personData.forEach(printData); // runs printData() on each row in table
+    function printData(personData) { 
+        console.log(personData[0]);
+        str += "<a href='{{ url_for('room_logs', columnVal='personData') }}''".replace("personData", personData[0]);
+        for(var i = 0; i < personData.length - 1; i++) { // loops through all columns in row
+            var linkNeed = false;
 
-    personsData.forEach(printData); // runs printData() on each row in table
-    function printData(personsData) { 
-        resultElement.innerHTML = "<p>"; // opens tag in innerHTML
-            
-        for(var i = 0; i < personsData.length - 1; i++) { // loops through all columns in row
-            resultElement.innerHTML += personsData[i] + ", "; // appends column data with ', ' and puts in innerHTML
+            str += personData[i] + ", "; // appends column data with ', ' and puts in innerHTML
+
+            if(i == 0) {
+                str += "</a>";
+                columnVal = personData[i];
+            }
         }
         
-        resultElement.innerHTML += personsData[personsData.length - 1]; // appends last column item without ','
-        resultElement.innerHTML += "</p>"; // closes tag in innerHTML
+        str += personData[personData.length - 1]; // appends last column item without ','
+        str += "<br>"; // closes tag in innerHTML
     }
+
+    document.getElementById("result").innerHTML = str;
 </script>

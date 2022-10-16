@@ -3,18 +3,19 @@
 </html>
 <script>
     let permissionData = {{ permissions | safe }}; // pulls data from Python as 2d array
-    var resultElement = document.getElementById("result"); // pulls tag with id = "result"
+    var str = "";
 
     permissionData.forEach(printData); // runs printData() on each row in table
     function printData(permissionData) { 
-        resultElement.innerHTML = "<p>"; // opens tag in innerHTML
-            
         for(var i = 0; i < permissionData.length - 1; i++) { // loops through all columns in row
-            resultElement.innerHTML += permissionData[i] + ", "; // appends column data with ', ' and puts in innerHTML
+            var linkNeed = false;
+
+            str += permissionData[i] + ", "; // appends column data with ', ' and puts in innerHTML
         }
         
-        resultElement.innerHTML += permissionData[permissionData.length - 1]; // appends last column item without ','
-        resultElement.innerHTML += "</p>"; // closes tag in innerHTML
+        str += permissionData[permissionData.length - 1]; // appends last column item without ','
+        str += "<br>"; // closes tag in innerHTML
     }
 
+    document.getElementById("result").innerHTML = str;
 </script>

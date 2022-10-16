@@ -7,20 +7,6 @@ import psycopg2
 
 conn = psycopg2.connect("postgresql://theDucks:vJD1ufdJRASpMJypuopW7Q@free-tier11.gcp-us-east1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full&options=--cluster%3Dkenthackenough-2373")
 
-def insertScan(roomID, personID):
-  stmt = """insert into Scan(scan_id = (
-    select max(scan_id) from Scan) + 1, 
-    time = NOW(),
-    room_id = (select room_id from Room where room_id = """ + roomID + """),
-    person_id = (select person_id from Person where person_id = """ + personID + """));"""
-
-  return executeStmt(stmt);
-
-def getPermission(personID):
-  stmt = "select s.person_id, p.* from Person s, Permission p where s.perm_id = p.perm_id and s.person_id = " + personID + ";"
-  
-  return executeStmt(stmt)
-
 def executeStmt(stmt):
   with conn.cursor() as cur:
     cur.execute(stmt)
@@ -33,7 +19,7 @@ def index():
   return render_template('./index.html')
 @app.route('/rooms.html')
 def room():
-  rooms = executeStmt("select * from room;")
+  rooms = executeStmt("select r.room_name, b.build_name from room r, building b;")
   jsonStr = json.dumps(rooms)
   return render_template('./rooms.html', rooms = jsonStr)
 @app.route('/permissions.html')
@@ -46,6 +32,18 @@ def students():
   persons = executeStmt("select * from person")
   jsonStr = json.dumps(persons)
   return render_template('./students.html', persons = jsonStr)
+@app.route('/room_logs.html')
+def room_logs():
+  columnVal = request.args.get('columnVal', None)
+  roomLogs = executeStmt("select r.room_name, s.* from scan s, room r where r.room_name = '" + columnVal + "' and r.room_id = s.room_id");
+  jsonStr = json.dumps(roomLogs)
+  return render_template('./room_logs.html', roomLogs = jsonStr)
+@app.route('/person_logs.html')
+def person_logs():
+  columnVal = request.args.get('columnVal', None)
+  personLogs = executeStmt("select p.person_id, p.firstname, p.lastname, p.email, s.* from scan s, person p where p.person_id = " + columnVal + " and p.person_id = s.person_id");
+  jsonStr = json.dumps(personLogs)
+  return render_template('./person_logs.html', personLogs = jsonStr)
 
 if __name__ == "__main__":
   app.run(debug=True);

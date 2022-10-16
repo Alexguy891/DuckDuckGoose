@@ -1,0 +1,36 @@
+*{
+    background-color: #222831;
+}
+
+th{
+  background-color: #ffad69;
+}
+
+td{
+  color: #EEEEEE;
+  background-color: #37414f;
+}
+
+/* unvisited link */
+a:link {
+    color: #FFD369;
+    background-color: #37414f;
+  }
+  
+  /* visited link */
+  a:visited {
+    color: #FFD369;
+    background-color: #37414f;
+  }
+  
+  /* mouse over link */
+  a:hover {
+    color: #ffad69;
+    background-color: #37414f;
+  }
+  
+  /* selected link */
+  a:active {
+    color: #FFD369;
+    background-color: #37414f;
+  }

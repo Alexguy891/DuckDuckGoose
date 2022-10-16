@@ -43,7 +43,7 @@ def room_logs():
 def person_logs():
   columnVal = request.args.get('columnVal', None)
   columnVal = columnVal.replace("%20"," ")
-  personLogs = executeStmt("select p.person_id, p.firstname, p.lastname, p.email, s.time, s.room_id from scan s, person p where p.person_id = '" + columnVal + "' and p.person_id = s.person_id");
+  personLogs = executeStmt("select p.email, s.time, s.room_id, p.person_id, p.firstname, p.lastname from scan s, person p where p.person_id = '" + columnVal + "' and p.person_id = s.person_id");
   jsonStr = json.dumps(personLogs, indent=4, sort_keys=True, default=str)
   return render_template('./person_logs.html', personLogs = jsonStr)
 

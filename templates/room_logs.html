@@ -18,6 +18,10 @@
     </table>
 </html>
 <script>
+setTimeout(function(){
+   window.location.reload(1);
+}, 5000);
+
 let logData = {{ roomLogs | safe }}; // pulls data from Python as 2d array
     var str = "<tr>";
 

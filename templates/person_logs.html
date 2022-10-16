@@ -7,28 +7,30 @@
         <link rel="shortcut icon" type="image/png" href="../static/img/favicon.png">
     </head>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/spreadsheets.css') }}" />
+    <p id="theader"></p>
     <table id="result">
         <tr>
-            <th>person_id</th>
-            <th>firstname</th>
-            <th>lastname</th>
-            <th>email</th>
             <th>time</th>
             <th>room_id</th>
         </tr>
     </table>
 </html>
 <script>
+setTimeout(function(){
+   window.location.reload(1);
+}, 5000);
+
 let logData = {{ personLogs | safe }}; // pulls data from Python as 2d array
+    document.getElementById("theader").innerHTML = "<p>" + logData[0][4] + " " + logData[0][5] + "</p>";
     var str = "<tr>";
 
     logData.forEach(printData); // runs printData() on each row in table
     function printData(logData) { 
-        for(var i = 0; i < logData.length - 1; i++) { // loops through all columns in row
+        for(var i = 1; i < logData.length - 4; i++) { // loops through all columns in row
             str += "<td>" + logData[i] + "</td>"; // appends column data with ', ' and puts in innerHTML
         }
         
-        str += "<td>" + logData[logData.length - 1] + "</td>"; // appends last column item without ','
+        str += "<td>" + logData[logData.length - 4] + "</td>"; // appends last column item without ','
         str += "</tr>"; // closes tag in innerHTML
     }
 

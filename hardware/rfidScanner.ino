@@ -12,6 +12,7 @@ void setup() {
   rfid.init();
   pinMode(7, OUTPUT); //red
   pinMode(6, OUTPUT); //yellow
+  pinMode(8, OUTPUT); //speaker
 }
 
 void loop() {
@@ -19,18 +20,31 @@ void loop() {
     if (rfid.readCardSerial()) {
       rfidCard = String(rfid.serNum[0]) + " " + String(rfid.serNum[1]) + " " + String(rfid.serNum[2]) + " " + String(rfid.serNum[3]);
       Serial.println(rfidCard);
-      delay(500);
+      delay(250);
       String test = Serial.readString();
       test.trim(); 
       if (test == "pass") {
-        digitalWrite(6, HIGH);
+        digitalWrite(6, HIGH); 
         delay(2000); 
         digitalWrite(6,LOW);
+        for (unsigned int i = 0; i <= 3; i++) {
+          digitalWrite(8, HIGH);
+          delay(100);
+          digitalWrite(8, LOW);
+          delay(100);
+        }
+
       }
       else {
       digitalWrite(7, HIGH);
       delay(2000);
       digitalWrite(7, LOW);
+      for (unsigned int i = 0; i <= 6; i++) {
+          digitalWrite(8, HIGH);
+          delay(100);
+          digitalWrite(8, LOW);
+          delay(100);
+        }
     }
     }
     rfid.halt();

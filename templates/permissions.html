@@ -2,12 +2,13 @@
     <div id="result"></div>
 </html>
 <script>
-    let permissionData = {{ permissions | safe }}; // ignore 
+    let permissionData = {{ permissions | safe }}; // pulls data from Python as 2d array
     var resultElement = document.getElementById("result"); // pulls tag with id = "result"
 
     permissionData.forEach(printData); // runs printData() on each row in table
     function printData(permissionData) { 
         resultElement.innerHTML = "<p>"; // opens tag in innerHTML
+            
         for(var i = 0; i < permissionData.length - 1; i++) { // loops through all columns in row
             resultElement.innerHTML += permissionData[i] + ", "; // appends column data with ', ' and puts in innerHTML
         }

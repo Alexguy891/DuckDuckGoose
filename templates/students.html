@@ -2,18 +2,18 @@
     <div id="result"></div>
 </html>
 <script>
-    let personData = {{ persons | safe }};
-    var resultElement = document.getElementById("result");
-    resultElement.innerHTML = "<p>";
+    let personsData = {{ persons | safe }}; // pulls data from Python as 2d array
+    var resultElement = document.getElementById("result"); // pulls tag with id = "result"
 
-    personData.forEach(printData);
-    function printData(personData {
-        for(var i = 0; i < personData.length - 1; i++) {
-            resultElement.innerHTML += personData[i] + ", ";
+    personsData.forEach(printData); // runs printData() on each row in table
+    function printData(personsData) { 
+        resultElement.innerHTML = "<p>"; // opens tag in innerHTML
+            
+        for(var i = 0; i < personsData.length - 1; i++) { // loops through all columns in row
+            resultElement.innerHTML += personsData[i] + ", "; // appends column data with ', ' and puts in innerHTML
         }
-
-        resultElement.innerHTML += personData[personData.length - 1];
+        
+        resultElement.innerHTML += personsData[personsData.length - 1]; // appends last column item without ','
+        resultElement.innerHTML += "</p>"; // closes tag in innerHTML
     }
-
-    resultElement.innerHTML += "</p>";
 </script>

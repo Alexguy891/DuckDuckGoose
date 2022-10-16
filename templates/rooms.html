@@ -8,18 +8,18 @@
 </body>
 </html>
 <script>
-    let roomData = {{ rooms | safe }};
-    var resultElement = document.getElementById("result");
-    resultElement.innerHTML = "<p>";
+    let roomsData = {{ rooms | safe }}; // pulls data from Python as 2d array
+    var resultElement = document.getElementById("result"); // pulls tag with id = "result"
 
-    roomData.forEach(printData)
-    function printData(roomData) {
-        for(var i = 0; i < roomData.length - 1; i++) {
-            resultElement.innerHTML += roomData[i] + ", ";
+    roomsData.forEach(printData); // runs printData() on each row in table
+    function printData(roomsData) { 
+        resultElement.innerHTML = "<p>"; // opens tag in innerHTML
+            
+        for(var i = 0; i < roomsData.length - 1; i++) { // loops through all columns in row
+            resultElement.innerHTML += roomsData[i] + ", "; // appends column data with ', ' and puts in innerHTML
         }
-
-        resultElement.innerHTML += roomData[roomData.length - 1];
+        
+        resultElement.innerHTML += roomsData[roomsData.length - 1]; // appends last column item without ','
+        resultElement.innerHTML += "</p>"; // closes tag in innerHTML
     }
-
-    resultElement.innerHTML += "</p>";
 </script>

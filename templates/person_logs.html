@@ -3,11 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Duck Duck Goose</title>
+        <title>Duck Duck Goose | User Logs</title>
         <link rel="shortcut icon" type="image/png" href="../static/img/favicon.png">
     </head>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/spreadsheets.css') }}" />
-    <p id="theader"></p>
+    <h1><a href="{{ url_for('index') }}"><img src = "../static/img/duck100px.png" width = "30" length = "30"></a></h1><br>
+    <h2 id="theader"></h2>
     <table id="result">
         <tr>
             <th>time</th>
@@ -21,7 +22,7 @@ setTimeout(function(){
 }, 5000);
 
 let logData = {{ personLogs | safe }}; // pulls data from Python as 2d array
-    document.getElementById("theader").innerHTML = "<p>" + logData[0][4] + " " + logData[0][5] + "</p>";
+    document.getElementById("theader").innerHTML = "<h2>" + logData[0][4] + " " + logData[0][5] + "</h2>";
     var str = "<tr>";
 
     logData.forEach(printData); // runs printData() on each row in table

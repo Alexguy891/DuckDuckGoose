@@ -1,14 +1,36 @@
 *{
     background-color: #222831;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+h1{
+    background-color:#30343c; 
+    position: relative;
+}
+
+h2{
+  color: #EEEEEE;
+  padding-left: .5%;
+  font-size: 25pt;
+}
+
+img{
+  background-color: #30343c;
 }
 
 th{
+  color:#222831;
   background-color: #ffad69;
 }
 
 td{
   color: #EEEEEE;
   background-color: #37414f;
+}
+
+table{
+  padding-left: .5%;
 }
 
 /* unvisited link */
